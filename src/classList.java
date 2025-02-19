@@ -172,6 +172,59 @@ int classLength(){
     return count;
 }
 
+void classAddFirst(classNode x){
+    if(isEmpty()){
+        head = x;
+        tail = x;
+        return;
+    }
+    x.next = head;
+    head = x;
+}
+
+void classAddAfter(int k, classNode x){
+    if(k > classLength()){
+        System.out.println(" position not available");
+    }
+    int count = 0;
+    if(isEmpty()){
+        head = x;
+        tail = x;
+        return;
+    }
+    classNode p = head;
+    while(p != null){
+        if(count == k){
+            break;
+        }
+        p = p.next;
+        count++;
+    }
+    if(p == tail){
+        p.next = x;
+        tail = x;
+    }
+    x.next = p.next;
+    p.next = x;
+    
+}
+
+void classDeletePosition(int k){
+    if(k > classLength()){
+        System.out.println(" position not available");
+    }
+    int count = 0;
+    classNode p = head;
+    if(isEmpty()){
+        System.out.println("there's no course lately");
+        return;
+    }
+    while(count+1 != k){
+        p = p.next;
+        count++;
+    }
+    p.next = p.next.next;
+}
 
 
 
