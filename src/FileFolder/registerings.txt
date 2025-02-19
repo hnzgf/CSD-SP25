@@ -1,0 +1,3 @@
+ccode1 scode1 2023-10-01 8.5 1
+ccode2 scode2 2023-10-02 6.0 1
+ccode3 scode3 2023-10-03 4.0 0
