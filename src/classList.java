@@ -185,6 +185,7 @@ void classAddFirst(classNode x){
 void classAddAfter(int k, classNode x){
     if(k > classLength()){
         System.out.println(" position not available");
+        return;
     }
     int count = 0;
     if(isEmpty()){
@@ -212,6 +213,7 @@ void classAddAfter(int k, classNode x){
 void classDeletePosition(int k){
     if(k > classLength()){
         System.out.println(" position not available");
+        return;
     }
     int count = 0;
     classNode p = head;
@@ -225,6 +227,31 @@ void classDeletePosition(int k){
     }
     p.next = p.next.next;
 }
+
+void classSearchByName(String name){
+    classNode p = head;
+    boolean printed = false;
+    if(isEmpty()){
+        System.out.println("no course");
+        return;
+    }
+    
+    while(p != null){
+        if(p.info.sname.equals(name)){
+            System.out.println(p.info);
+            printed = true;
+        }
+        p = p.next;
+    }
+    if(!printed){
+        System.out.println("name not available");
+    }
+    else{
+        return;
+    }
+}
+
+
 
 
 
