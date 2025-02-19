@@ -149,10 +149,61 @@ void studentSearchByName(String name){
     }
 }
 
-void registeredCourseByScode(String scode){
-    classList rl = new classList();
-    rl.searchCourseByStudentScode(scode);
-}
+//void registeredCourseByScode(String scode){
+//    classList rl = new classList();
+//    rl.searchCourseByStudentScode(scode);
+//}
+//
+//    //for student list purpose
+//void searchCourseByStudentScode(String scode){
+//    boolean course = false;
+//    studentList sl = new studentList();
+//    if(isEmpty()){
+//        System.out.println("no list lately");
+//        return;
+//    }
+//    
+//    //if head
+//    if(head.info.scode.equals(scode)){
+//        System.out.println(head.info);
+//        return;
+//    }
+//    
+//    //if scode available
+//    if(!sl.studentCheckScode(scode)){
+//        System.out.println("there's no this scode");
+//        return;
+//    }
+//    
+//    classNode p = head;
+//    while(p != null){
+//        
+//        //find course
+//        if(p.info.scode.equals(scode)){
+//            System.out.println(p.info);
+//            course = true;
+//        }
+//        
+//        
+//        
+//        p = p.next;
+//    }
+//    if(course){
+//        return;
+//    }
+//    else{
+//        System.out.println("no course found");
+//        return;
+//    }
+//}
+
+
+
+
+
+
+
+
 
 
 }
