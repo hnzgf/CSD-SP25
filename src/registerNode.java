@@ -1,20 +1,15 @@
 
 public class registerNode {
-    
-    Register info;
-    registerNode next;
 
-     registerNode() {
+    Register data;
+    Node next;
+
+    public registerNode() {
     }
 
-     registerNode(Register x, registerNode p) {
-        info = x;
-        next = p;
+    public registerNode(Register data) {
+        this.data = data;
+        this.next = null;
     }
-
-     registerNode(Register x) {
-        this(x, null);
-    }
-
 
 }

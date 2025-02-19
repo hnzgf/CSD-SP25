@@ -1,12 +1,12 @@
-
+import java.util.Date;
 public class Register {
     String ccode;
     String scode;
-    String bdate;
+    Date bdate;
     double mark;
     int state; // 1 or 0
 
-    public Register(String ccode, String scode, String bdate, double mark, int state) {
+    public Register(String ccode, String scode, Date bdate, double mark, int state) {
         this.ccode = ccode;
         this.scode = scode;
         this.bdate = bdate;

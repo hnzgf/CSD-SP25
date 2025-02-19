@@ -26,9 +26,6 @@ public class Class{
     public String toString() {
         return "Class{" + "ccode=" + ccode + ", scode=" + scode + ", sname=" + sname + ", semester=" + semester + ", year=" + year + ", seats=" + seats + ", registered=" + registered + ", price=" + price + '}';
     }
-    //duhasoidhasdhwaoi
-    //đanklwahjdklajw
-    
     
     
     
