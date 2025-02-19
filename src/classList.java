@@ -134,9 +134,43 @@ void classDeleteByCcode(String ccode){
 }
 
 void classSortByCcode(){
-    
+    if(isEmpty()){
+        System.out.println("no course lately");
+    }
+    classNode q = head;
+    while(q != null){
+        classNode p = head;
+        int charAt = 0;
+        while(p.next != null){
+            while(p.info.ccode.charAt(charAt) != '\n' && p.next.info.ccode.charAt(charAt) != '\n' && p.next != null){
+                if(p.info.ccode.charAt(charAt)<p.next.info.ccode.charAt(charAt)){
+                classSwap(p,p.next);
+                break;
+                }
+                charAt++;
+            }
+        p = p.next;
+        }
+        q = q.next;
+    }
 }
 
+void classSwap(classNode x, classNode y){
+    classNode temp = head;
+    temp.info = x.info;
+    x.info = y.info;
+    y.info = temp.info;
+}
+
+int classLength(){
+    int count = 0;
+    classNode p = head;
+    while(p != null){
+        p = p.next;
+        count++;
+    }
+    return count;
+}
 
 
 
