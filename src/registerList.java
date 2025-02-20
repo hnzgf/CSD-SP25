@@ -17,7 +17,7 @@ public class registerList {
         if (head == null) {
             head = newNode;
         } else {
-            Node current = head;
+            registerNode current = head;
             while (current.next != null) {
                 current = current.next;
             }
@@ -31,7 +31,7 @@ public class registerList {
             System.out.println("Registering list is empty!");
             return;
         }
-        Node current = head;
+        registerNode current = head;
         while (current != null) {
             System.out.println(current.data);
             current = current.next;
