@@ -237,12 +237,14 @@ void classSearchByName(String name){
     }
     
     while(p != null){
+        //if course(s) found 
         if(p.info.sname.equals(name)){
             System.out.println(p.info);
             printed = true;
         }
         p = p.next;
     }
+    //searched all list and no name fit
     if(!printed){
         System.out.println("name not available");
     }
