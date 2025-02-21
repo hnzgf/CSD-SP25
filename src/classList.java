@@ -143,7 +143,7 @@ void classSortByCcode(){
         int charAt = 0;
         while(p.next != null){
             while(p.info.ccode.charAt(charAt) != '\n' && p.next.info.ccode.charAt(charAt) != '\n' && p.next != null){
-                if(p.info.ccode.charAt(charAt)<p.next.info.ccode.charAt(charAt)){
+                if(p.info.ccode.charAt(charAt) < p.next.info.ccode.charAt(charAt)){
                 classSwap(p,p.next);
                 break;
                 }
