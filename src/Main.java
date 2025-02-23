@@ -3,8 +3,7 @@ public class Main {
         registerList registeringList = new registerList();
 
         // Load data from file
-        String filename = "registerings.txt";
-        registeringList.loadFromFile(filename);
+        registeringList.loadFromFile();
 
         // Display all registers
         System.out.println("\nRegistering List:");
