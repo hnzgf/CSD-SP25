@@ -1,18 +1,12 @@
-
 public class studentNode {
-     Student info;
+    Student info;
     studentNode next;
 
-     studentNode() {
+    public studentNode() {
     }
 
-     studentNode(Student x, studentNode p) {
-        info = x;
-        next = p;
+    public studentNode(Student info) {
+        this.info = info;
+        this.next = null;
     }
-
-     studentNode(Student x) {
-        this(x, null);
-    }
-    
 }

@@ -1,0 +1,5 @@
+STU001,Nguyen Van A,2003
+STU002,Tran Thi B,2004
+STU003,Le Minh C,2002
+STU004,Pham Thu D,2005
+STU005,Hoang Xuan E,2001

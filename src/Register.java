@@ -18,6 +18,27 @@ public class Register {
     public String toString() {
         return "Register{" + "ccode=" + ccode + ", scode=" + scode + ", bdate=" + bdate + ", mark=" + mark + ", state=" + state + '}';
     }
-    
+    public String getCcode() {
+        return ccode;
+    }
+
+    public String getScode() {
+        return scode;
+    }
+
+    public Date getBdate() {
+        return bdate;
+    }
+
+    public double getMark() {
+        return mark;
+    }
+
+    public int getState() {
+        return state;
+    }
+    public void setMark(double mark) {
+        this.mark = mark;
+    }
     
 }
