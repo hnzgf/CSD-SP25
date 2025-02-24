@@ -40,5 +40,8 @@ public class Register {
     public void setMark(double mark) {
         this.mark = mark;
     }
-    
+    public void setState(int state) {
+        this.state = state;
+    }
+
 }

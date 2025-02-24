@@ -72,68 +72,41 @@ public class registerList {
             e.printStackTrace();
         }
     }
-
-    // Tìm xem Ccode có trong danh sách không
-    public boolean findCcode(String ccode) {
-        registerNode temp = head;
-        if (head == null) return false; // handle empty list case
-        while (temp != null) { // changed from temp.next to temp to check the last node
-            if (temp.data.getCcode().equals(ccode)) { // use .equals for String comparison
-                return true;
-            }
-            temp = temp.next;
-        }
-        return false;
-
-    }
-
-    // TÌm xem Scode có trong dsanh sách không
-    public boolean findScode(String scode) {
-        registerNode temp = head;
-        if (head == null) return false; // handle empty list case
-        while (temp != null) { // changed from temp.next to temp to check the last node
-            if (temp.data.getScode().equals(scode)) { // use .equals for String comparison
-                return true;
-            }
-            temp = temp.next;
-        }
-        return false;
-    }
+    // Kiểm tra xem đơn đăng kí có bị trùng không.
     private boolean isRegistered(String ccode, String scode) {
         registerNode current = head;
         while (current != null) {
             if (current.data.getCcode().equals(ccode) && current.data.getScode().equals(scode)) {
-                return true; // Đã đăng ký rồi
+                return true;
             }
             current = current.next;
         }
-        return false; // Chưa đăng ký
+        return false;
     }
 
     // Phương thức để tạo thêm danh sách đăng kí.
     public void createRegister(String ccode, String scode) {
-        Course course = cll.searchByCcode(ccode);
+        Course course = cll.searchByCcode(ccode); // Kiểm tra xem khóa học có trong CourseList không.
         if (course == null) {
             System.out.println("Mã khóa học không tồn tại.");
             return;
         }
 
-        // 2. Kiểm tra sinh viên (scode) có tồn tại trong studentList không
-        Student student = sdl.searchByScode(scode);
+        Student student = sdl.searchByScode(scode); // Kiểm tra xem mã sinh viên có trong StudentList không.
         if (student == null) {
             System.out.println("Mã sinh viên không tồn tại.");
             return;
         }
 
-        // 3. Kiểm tra xem sinh viên đã đăng ký khóa học này chưa (trong registerList)
+        // Kiểm tra xem sinh viên đã đăng ký khóa học này chưa (trong registerList)
         if (isRegistered(ccode, scode)) {
             System.out.println("Sinh viên đã đăng ký khóa học này rồi.");
             return;
         }
 
 
-        // 4. Kiểm tra lớp còn chỗ trống không
-        if (course.getRegistered() >= course.getSeats()) { // Sử dụng getRegistered() và getSeats() của Class object
+        // Kiểm tra lớp còn chỗ trống không
+        if (course.getSeats() <= 0) {
             System.out.println("Lớp học đã hết chỗ.");
             return;
         }
@@ -145,7 +118,7 @@ public class registerList {
         newNode.next = head;
         head = newNode;
 
-        // 5. Cập nhật số chỗ đã đăng ký và chỗ còn lại trong Class object (ĐÃ THÊM CODE VÀO ĐÂY)
+        // Cập nhật số chỗ đã đăng ký và chỗ còn lại trong Courses
         course.setRegistered(course.getRegistered() + 1); // Tăng số lượng đã đăng ký
         course.setSeats(course.getSeats() - 1); // Giảm số chỗ ngồi
     }
@@ -153,6 +126,8 @@ public class registerList {
     public void getRegister() {
         System.out.println("Function getRegister not implemented yet.");
     }
+
+    // Lưu registerList vào File registerings.txt.
     public void saveToFile() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/FileFolder/registerings.txt"))) {
@@ -169,6 +144,8 @@ public class registerList {
             e.printStackTrace();
         }
     }
+
+
     public void sortbyCcodeandScode() {
         if (head == null || head.next == null) {
             return; // Danh sách rỗng hoặc chỉ có 1 phần tử
@@ -199,65 +176,8 @@ public class registerList {
 
         display(); // Hiển thị danh sách đã sắp xếp
     }
-    public void updateMarkByCcodeAndScode(String ccode, String scode) {
-        Scanner scanner = new Scanner(System.in);
-        registerNode current = head;
-        while (current != null) {
-            if (current.data.getCcode().equals(ccode) && current.data.getScode().equals(scode)) {
-                System.out.print("Enter new mark: ");
-                double newMark = scanner.nextDouble();
-                current.data.setMark(newMark);
-                System.out.println("Mark updated successfully.");
-                return;
-            }
-            current = current.next;
-        }
-        System.out.println("Register not found.");
-    }
-    void classSortByScode(){
-        System.out.println("Function classSortByScode is not relevant to registerList and not implemented.");
-    }
-    void classSwap(studentNode x, studentNode y){
-        System.out.println("Function classSwap is not relevant to registerList and not implemented.");
-    }
-    public studentList getStudentsByCcode(String ccode, studentList studentList) {
-        studentList resultList = new studentList(); // Assuming studentList class exists
-        registerNode current = head;
-        while (current != null) {
-            if (current.data.getCcode().equals(ccode)) {
-                // Find the student in studentList using scode from register
-                studentNode studentNode = studentList.head; // Assuming studentList has head and studentNode
-                while (studentNode != null) {
-                    if (studentNode.info.scode.equals(current.data.getScode())) { // Assuming studentNode.info is Register and has scode
-                        resultList.studentAddLast(studentNode); // Assuming studentList has studentAddLast and takes studentNode
-                        break; // Student found, no need to continue inner loop
-                    }
-                    studentNode = studentNode.next;
-                }
-            }
-            current = current.next;
-        }
-        return resultList;
-    }
-    public classList getCoursesByScode(String scode, classList courseList) {
-        classList resultList = new classList(); // Assuming classList class exists
-        registerNode current = head;
-        while (current != null) {
-            if (current.data.getScode().equals(scode)) {
-                // Find the course in courseList using ccode from register
-                courseNode courseNode = courseList.head; // Assuming classList has head and classNode
-                while (courseNode != null) {
-                    if (courseNode.info.ccode.equals(current.data.getCcode())) { // Assuming courseNode.info is Class and has ccode
-                        resultList.classAddLast(courseNode); // Assuming classList has classAddLast and takes classNode
-                        break; // Course found, no need to continue inner loop
-                    }
-                    courseNode = courseNode.next;
-                }
-            }
-            current = current.next;
-        }
-        return resultList;
-    }
+
+    // Main
     public void registerMenu() {
         Scanner scanner = new Scanner(System.in);
         int choice;
@@ -302,38 +222,50 @@ public class registerList {
         } while (choice != 0);
     }
 
-    // Method for menu option 3.2: Register the course
+    // 3.2 Tạo đăng ký khóa học.
     public void inputAndAddRegister(Scanner scanner) {
         System.out.print("Enter course code (ccode): ");
         String ccode = scanner.nextLine();
         System.out.print("Enter student code (scode): ");
         String scode = scanner.nextLine();
-
-        // Assuming createRegister handles checks and adds the register
         createRegister(ccode, scode);
     }
 
-
-    // Method for menu option 3.6: Update mark by ccode + scode
+    // 3.6 Cập nhật điểm Khóa học của Sinh viên.
     public void updateMarkByCcodeAndScode(Scanner scanner) {
         System.out.print("Enter course code to update mark: ");
         String ccode = scanner.nextLine();
         System.out.print("Enter student code to update mark: ");
         String scode = scanner.nextLine();
-        updateMarkByCcodeAndScode(ccode, scode, scanner); // Call the overloaded method
+        updateMarkByCcodeAndScode(ccode, scode, scanner); // Sử dụng lại Overload
     }
 
-    //Overload method for updateMarkByCcodeAndScode to take Scanner as argument
+    //Overload
     public void updateMarkByCcodeAndScode(String ccode, String scode, Scanner scanner) {
         registerNode current = head;
         while (current != null) {
             if (current.data.getCcode().equals(ccode) && current.data.getScode().equals(scode)) {
-                System.out.print("Enter new mark: ");
-                double newMark = scanner.nextDouble();
-                scanner.nextLine(); // consume newline
-                current.data.setMark(newMark);
-                System.out.println("Mark updated successfully.");
-                return;
+                while (true) {
+                    System.out.print("Enter new mark: ");
+                    String input = scanner.nextLine();
+                    if (input.trim().isEmpty()) { // Kiểm tra input rỗng
+                        System.out.println("Mark cannot be empty. Please try again!");
+                        continue;
+                    }
+                    try {
+                        double newMark = Double.parseDouble(input);
+                        if (newMark >= 0 && newMark <= 10 && newMark != -0.0) {
+                            current.data.setMark(newMark);
+                            current.data.setState(newMark >= 5 ? 1 : 0);
+                            System.out.println("Mark updated successfully.");
+                            return;
+                        } else {
+                            System.out.println("Invalid mark! (0<=Mark<=10), Please try again!");
+                        }
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid input. Please enter a number!");
+                    }
+                }
             }
             current = current.next;
         }
@@ -345,80 +277,5 @@ public class registerList {
         return head == null;
     }
 
-
-    // Example studentLis/t and classList classes - you might have these defined elsewhere
-    public static class studentList {
-        studentNode head;
-        public studentList() {
-            this.head = null;
-        }
-        public void studentAddLast(studentNode node) {
-            if (head == null) {
-                head = node;
-            } else {
-                studentNode current = head;
-                while (current.next != null) {
-                    current = current.next;
-                }
-                current.next = node;
-            }
-        }
-        public boolean isEmpty() {
-            return head == null;
-        }
-        public void display() {
-            if (head == null) {
-                System.out.println("Student list is empty.");
-                return;
-            }
-            studentNode current = head;
-            while (current != null) {
-                System.out.println(current.info); // Assuming studentNode.info.toString() is defined
-                current = current.next;
-            }
-        }
-
-        public Student searchByScode(String scode) {
-            studentNode current = head;
-            while (current != null) {
-                if (current.info.getScode().equals(scode)) {
-                    return current.info;
-                }
-                current = current.next;
-            }
-            return null; // Not found
-        }
-    }
-
-    public static class classList {
-        courseNode head;
-
-        public classList() {
-            this.head = null;
-        }
-
-        public void classAddLast(courseNode node) {
-            if (head == null) {
-                head = node;
-            } else {
-                courseNode current = head;
-                while (current.next != null) {
-                    current = current.next;
-                }
-                current.next = node;
-            }
-        }
-
-        public Course searchByCcode(String ccode) {
-            courseNode current = head; // hoặc courseNode current
-            while (current != null) {
-                if (current.info.getCcode().equals(ccode)) {
-                    return current.info;
-                }
-                current = current.next;
-            }
-            return null; // Not found
-        }
-    }
 
 }
