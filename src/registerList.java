@@ -125,5 +125,51 @@ public class registerList {
             e.printStackTrace();
         }
     }
+    public void sortbyCcodeandScode() {
+        if (head == null || head.next == null) {
+            return; // Danh sách rỗng hoặc chỉ có 1 phần tử
+        }
+
+        boolean swapped;
+        registerNode current;
+        registerNode ptr = null;
+
+        do {
+            swapped = false;
+            current = head;
+
+            while (current.next != ptr) {
+                if (current.data.getCcode().compareTo(current.next.data.getCcode()) > 0 ||
+                        (current.data.getCcode().equals(current.next.data.getCcode()) &&
+                                current.data.getScode().compareTo(current.next.data.getScode()) > 0)) {
+                    // Hoán đổi dữ liệu giữa current và current.next
+                    Register temp = current.data;
+                    current.data = current.next.data;
+                    current.next.data = temp;
+                    swapped = true;
+                }
+                current = current.next;
+            }
+            ptr = current;
+        } while (swapped);
+
+        display(); // Hiển thị danh sách đã sắp xếp
+    }
+    public void updateMarkByCcodeAndScode(String ccode, String scode) {
+        Scanner scanner = new Scanner(System.in);
+        registerNode current = head;
+        while (current != null) {
+            if (current.data.getCcode().equals(ccode) && current.data.getScode().equals(scode)) {
+                System.out.print("Enter new mark: ");
+                double newMark = scanner.nextDouble();
+                current.data.setMark(newMark);
+                System.out.println("Mark updated successfully.");
+                return;
+            }
+            current = current.next;
+        }
+        System.out.println("Register not found.");
+    }
+    classSortByCcode()
 
 }
