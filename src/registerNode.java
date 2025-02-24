@@ -1,5 +1,5 @@
 
-public class registerNode {
+public class registerNode extends studentNode {
 
     Register data;
     registerNode next;

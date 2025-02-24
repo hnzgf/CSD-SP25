@@ -109,6 +109,9 @@ public class registerList {
         classNode.registered++;
         System.out.println("Đã đăng ký thành công");
     }
+    public void getRegister() {
+
+    }
     public void saveToFile() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/FileFolder/registerings.txt"))) {
@@ -170,6 +173,70 @@ public class registerList {
         }
         System.out.println("Register not found.");
     }
-    classSortByCcode()
+    void classSortByScode(){
+        if(isEmpty()){
+            System.out.println("no course lately");
+        }
+        studentNode q = head;
+        while(q != null){
+            studentNode p = head;
+            int charAt = 0;
+            while(p.next != null){
+                while(p.info.scode.charAt(charAt) != '\n' && p.next.info.scode.charAt(charAt) != '\n' && p.next != null){
+                    if(p.info.scode.charAt(charAt) < p.next.info.scode.charAt(charAt)){
+                        classSwap(p,p.next);
+                        break;
+                    }
+                    charAt++;
+                }
+                p = p.next;
+            }
+            q = q.next;
+        }
+    }
+    void classSwap(studentNode x, studentNode y){
+        studentNode temp = head;
+        temp.info = x.info;
+        x.info = y.info;
+        y.info = temp.info;
+    }
+    public studentList getStudentsByCcode(String ccode, studentList studentList) {
+        studentList resultList = new studentList(); // Use studentList (linked list) instead of ArrayList
+        registerNode current = head;
+        while (current != null) {
+            if (current.data.getCcode().equals(ccode)) {
+                // Find the student in studentList using scode from register
+                studentNode studentNode = studentList.head;
+                while (studentNode != null) {
+                    if (studentNode.info.scode.equals(current.data.getScode())) {
+                        resultList.studentAddLast(new studentNode(studentNode.info)); // Add studentNode to resultList
+                        break; // Student found, no need to continue inner loop
+                    }
+                    studentNode = studentNode.next;
+                }
+            }
+            current = current.next;
+        }
+        return resultList;
+    }
+    public classList getCoursesByScode(String scode, classList courseList) {
+        classList resultList = new classList(); // Use classList (linked list) instead of ArrayList
+        registerNode current = head;
+        while (current != null) {
+            if (current.data.getScode().equals(scode)) {
+                // Find the course in courseList using ccode from register
+                classNode courseNode = courseList.head;
+                while (courseNode != null) {
+                    if (courseNode.info.ccode.equals(current.data.getCcode())) {
+                        resultList.classAddLast(new classNode(courseNode.info)); // Add courseNode to resultList
+                        break; // Course found, no need to continue inner loop
+                    }
+                    courseNode = courseNode.next;
+                }
+            }
+            current = current.next;
+        }
+        return resultList;
+    }
 
 }

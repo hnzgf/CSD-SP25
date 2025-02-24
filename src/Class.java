@@ -6,7 +6,7 @@ public class Class{
     String sname;
     String semester;
     String year;
-    int seats;
+    int seats =30;
     int registered;
     double price;
 
