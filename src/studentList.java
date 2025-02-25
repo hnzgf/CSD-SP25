@@ -161,7 +161,7 @@ public class studentList {
             System.out.println("2.5. Search by scode");
             System.out.println("2.6. Delete by scode");
             System.out.println("2.7. Search by name (student name)");
-            System.out.println("2.8. Search registered courses by scode");
+            System.out.println("2.8. Search registered courses.txt by scode");
             System.out.println("0. Back to main menu");
             System.out.print("Chọn chức năng: ");
             choice = scanner.nextInt();
@@ -264,9 +264,9 @@ public class studentList {
         }
     }
 
-    // Method for menu option 2.8: Search registered courses (Placeholder - Needs RegisterList integration)
+    // Method for menu option 2.8: Search registered courses.txt (Placeholder - Needs RegisterList integration)
     public void searchRegisteredCourses(Scanner scanner) {
-        System.out.print("Enter student code to search registered courses: ");
+        System.out.print("Enter student code to search registered courses.txt: ");
         String scode = scanner.nextLine();
         searchRegisteredCoursesByScode(scode); // Call the placeholder function
     }

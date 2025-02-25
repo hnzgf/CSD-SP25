@@ -73,7 +73,7 @@ public class courseList { // hoặc courseList.java nếu đổi tên Class.java
 
     // 1.4. Save course list to file
     public void saveToFile() {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/FileFolder/student.txt"))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/FileFolder/courses.txt"))) {
             courseNode current = head; // hoặc courseNode current
             while (current != null) {
                 Course c = current.info; // hoặc Course c
@@ -90,7 +90,7 @@ public class courseList { // hoặc courseList.java nếu đổi tên Class.java
 
     // 1.1. Load data from file
     public void loadFromFile() {
-        try (BufferedReader br = new BufferedReader(new FileReader("src/FileFolder/student.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("src/FileFolder/courses.txt"))) {
             String line;
             int lineCount = 0;
             while ((line = br.readLine()) != null) {
@@ -114,7 +114,7 @@ public class courseList { // hoặc courseList.java nếu đổi tên Class.java
             }
             System.out.println("Data loaded from file: courses.txt");
         } catch (FileNotFoundException e) {
-            System.out.println("File not found: courses.txt. Please make sure the file exists in the specified directory.");
+            System.out.println("File not found: courses.txt.txt. Please make sure the file exists in the specified directory.");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -453,7 +453,7 @@ public class courseList { // hoặc courseList.java nếu đổi tên Class.java
             System.out.println("Courses found:");
             foundCourses.classDisplay();
         } else {
-            System.out.println("No courses found with name containing: " + name);
+            System.out.println("No courses.txt found with name containing: " + name);
         }
     }
 
