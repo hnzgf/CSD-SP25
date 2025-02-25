@@ -77,7 +77,7 @@ public class courseList { // hoặc courseList.java nếu đổi tên Class.java
             courseNode current = head; // hoặc courseNode current
             while (current != null) {
                 Course c = current.info; // hoặc Course c
-                String line = c.getCcode() + " " + c.getScode() + " " + c.getSname() + " " + c.getSemester() + " " + c.getYear() + " " + c.getSeats() + " " + c.getRegistered() + " " + c.getPrice();
+                String line = c.getCcode() + ", " + c.getScode() + ", " + c.getSname() + ", " + c.getSemester() + ", " + c.getYear() + ", " + c.getSeats() + ", " + c.getRegistered() + ", " + c.getPrice();
                 bw.write(line);
                 bw.newLine();
                 current = current.next;
@@ -92,31 +92,36 @@ public class courseList { // hoặc courseList.java nếu đổi tên Class.java
     public void loadFromFile() {
         try (BufferedReader br = new BufferedReader(new FileReader("src/FileFolder/courses.txt"))) {
             String line;
-            int lineCount = 0;
+            head = null; // Reset danh sách trước khi load dữ liệu mới
             while ((line = br.readLine()) != null) {
-                lineCount++;
-                String[] parts = line.split("\\s+");
-                if (parts.length != 8) {
-                    System.out.println("Invalid line format in file courses.txt, line " + lineCount + ": " + line);
-                    continue;
-                }
-                String ccode = parts[0];
-                String scode = parts[1];
-                String sname = parts[2];
-                String semester = parts[3];
-                String year = parts[4];
-                int seats = Integer.parseInt(parts[5]);
-                int registered = Integer.parseInt(parts[6]);
-                double price = Double.parseDouble(parts[7]);
+                String[] parts = line.split(",\\s*"); // Sửa lại dấu phân tách
+                if (parts.length == 8) {
+                    try {
+                        String ccode = parts[0].trim(); // Trim để loại bỏ khoảng trắng thừa
+                        String scode = parts[1].trim();
+                        String sname = parts[2].trim();
+                        String semester = parts[3].trim();
+                        String year = parts[4].trim();
+                        int seats = Integer.parseInt(parts[5].trim());
+                        int registered = Integer.parseInt(parts[6].trim());
+                        double price = Double.parseDouble(parts[7].trim());
 
-                Course course = new Course(ccode, scode, sname, semester, year, seats, registered, price);
-                classAddLast(course);
+                        Course course = new Course(ccode, scode, sname, semester, year, seats, registered, price);
+                        classAddLast(course);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Lỗi định dạng số trong file: " + line);
+                        e.printStackTrace(); // In lỗi để gỡ lỗi
+                    }
+                } else {
+                    System.out.println("Dòng không hợp lệ trong file: " + line);
+                }
             }
-            System.out.println("Data loaded from file: courses.txt");
+            System.out.println("Dữ liệu đã được load từ file courses.txt");
         } catch (FileNotFoundException e) {
-            System.out.println("File not found: courses.txt.txt. Please make sure the file exists in the specified directory.");
-        } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Không tìm thấy file courses.txt");
+        } catch (IOException e) {
+            System.out.println("Lỗi khi đọc file courses.txt");
+            e.printStackTrace(); // In lỗi để gỡ lỗi
         }
     }
 
@@ -384,6 +389,23 @@ public class courseList { // hoặc courseList.java nếu đổi tên Class.java
                 scanner.nextLine(); // consume invalid input
             }
         }
+        int registered = 0;
+        boolean validRegistered = false;
+        while (!validRegistered) {
+            System.out.print("Enter registered: ");
+            if (scanner.hasNextInt()) {
+                registered = scanner.nextInt();
+                scanner.nextLine(); // consume newline
+                if (registered >= 0) {
+                    validRegistered = true;
+                } else {
+                    System.out.println("registered must be a non-negative number. Please re-enter seats.");
+                }
+            } else {
+                System.out.println("Invalid seats format. Please enter an integer.");
+                scanner.nextLine(); // consume invalid input
+            }
+        }
         double price = 0;
         boolean validPrice = false;
         while (!validPrice) {
@@ -402,7 +424,7 @@ public class courseList { // hoặc courseList.java nếu đổi tên Class.java
             }
         }
 
-        return new Course(ccode, scode, sname, semester, year, seats, 0, price); // Registered starts at 0
+        return new Course(ccode, scode, sname, semester, year, seats, registered, price); // Registered starts at 0
     }
 
 

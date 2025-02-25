@@ -1,0 +1,5 @@
+CS101,CS,Introduction to Programming,Spring,2023,30,25,1500000
+MATH201,MATH,Calculus I,Fall,2023,40,35,1800000
+PHYS101,PHYS,General Physics I,Spring,2024,35,30,1600000
+ENG101,ENG,English Composition,Fall,2024,25,20,1200000
+HIST101,HIST,World History I,Spring,2025,30,0,1400000
